@@ -1,0 +1,95 @@
+<html lang="en">
+<!-- feel free to revise this file -->
+
+<head>
+	<style>	
+		/*write your css rules here*/
+		
+		textarea {
+		  width:100%;
+		}
+
+		li {
+			font-size: 30px;
+		}
+		
+    .strikeline {
+      text-decoration: line-through
+      }
+      
+     .hide {
+       display: none
+     }
+	</style>
+</head>
+
+<body>
+	<textarea id='text' rows="3" >Dinner, 1; Exercise, 2; Study, 3</textarea> 
+	<br/>
+	<div class='divButton'>
+		<button id='btn_add'>Add</button>
+		<button id='btn_hide'>Toggle</button>
+	</div>
+
+	<ol id='order_list'>
+	</ol>	
+</body>
+
+	<script>
+		// write your Javascript here
+    addbutton = document.getElementById('btn_add')
+    toggle = document.getElementById('btn_hide')
+    list = document.getElementById('order_list')
+    
+    addbutton.addEventListener('click', addfunction)
+    toggle.addEventListener('click', togglefunction)
+    
+    list.addEventListener('dblclick', function(event){
+    if (confirm('Do you want to delete the following item?\n' + event.target.innerText) == true){
+    list.removeChild(event.target)
+    }
+    })
+    
+    list.addEventListener('click', function(event){
+    event.target.classList.toggle('strikeline')
+    })
+    
+    function addfunction(){
+    input = document.getElementById('text').value
+    array1 = input.split(';')
+    taskcontent = []
+    taskcategory = []
+    array1.forEach(separate)
+    
+    for (i = 0; i < array1.length; i++) {
+    item = document.createElement("li")
+    item.appendChild(document.createTextNode(taskcontent[i]))
+    if (taskcategory[i] == 1){
+    item.style.color = 'red'
+    } else if (taskcategory[i] == 2){
+    item.style.color = 'black'
+    } else{
+    item.style.color = 'grey'
+    }
+    list.appendChild(item)
+    }
+    }
+    
+    function separate(contentcategory){
+    array2 = contentcategory.split(',')
+    taskcontent.push(array2[0])
+    taskcategory.push(array2[1])
+    }
+    
+    function togglefunction(){
+    completedtasks = document.getElementsByClassName('strikeline')
+    for (i = 0; i < completedtasks.length; i++) {
+    completedtasks[i].classList.toggle('hide')
+    }
+    }
+    
+    
+
+	</script>
+</html>
+
